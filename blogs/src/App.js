@@ -1,6 +1,6 @@
 import './App.css';
 import BlogList from './components/allBlogs';
-import Login from './components/signin';
+import Home from './components/home';
 import Signup from './components/signup';
 
 
@@ -8,13 +8,12 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>My Django-React App</h1>
+        <h1>Blogger</h1>
       </header>
       <main>
         {/* <BlogList/> */}
-        {/* <Login/> */}
+        <Home/>
         {/* <Signup/> */}
-        <h1>Hello</h1>
       </main>
     </div>
   );

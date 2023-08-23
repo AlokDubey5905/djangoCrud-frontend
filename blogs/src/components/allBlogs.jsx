@@ -6,13 +6,15 @@ function BlogList() {
 
   useEffect(() => {
     axios.get('/api/blogs/')
-      .then(response => setBlogs(response.data))
+      .then(response => {
+        setBlogs(response.data);
+        console.log(response.data);
+      })
       .catch(error => console.error(error));
   }, []);
 
   return (
     <div>
-      <h2>All Blogs</h2>
       {blogs.map(blog => (
         <div key={blog.id}>
           <h3>{blog.title} by {blog.name}</h3>

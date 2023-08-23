@@ -8,17 +8,18 @@ function UserBlogList({ loggedInUser }) {
         axios.get('/api/user_blogs/')
             .then(response => {
                 setBlogs(response.data);
+                console.log(response.data)
             })
             .catch(error => console.error(error));
     }, []);
 
     return (
         <div>
-            <h2>Your Blogs</h2>
             {blogs.map(blog => (
                 <div key={blog.id}>
-                    <h3>{blog.title}</h3>
+                    <h3>{blog.title} by {blog.name}</h3>
                     <p>{blog.content}</p>
+                    <p>{blog.created_at}</p>
                     {blog.author === loggedInUser ? (
                         <div>
                             <button>Edit</button>

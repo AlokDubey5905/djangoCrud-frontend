@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import UserBlogList from './userBlogs';
 
-function Login() {
+function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -33,58 +32,25 @@ function Login() {
             console.error(error); // Handle login error
         }
     };
-    // get cookies
-    function getCookie(name) {
-        const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
-        return cookieValue ? cookieValue.pop() : '';
-    }
-    const handleLogout = async () => {
-        try {
-            const csrfToken = getCookie('csrftoken');
-            const response = await axios.post('/api/logout/', {}, {
-                headers: {
-                    'X-CSRFToken': csrfToken, // Get CSRF token function
-                },
-            });
-            // console.log('CSRF Token:', csrfToken);
-            console.log(response.data); // Handle successful logout
-            setIsLoggedIn(false);
-            setLoggedInUser('');
-        } catch (error) {
-            console.log('CSRF Token:', getCookie('csrftoken'));
-            console.error(error); // Handle logout error
-        }
-    };
 
     return (
         <div>
             <h2>Login</h2>
-            {isLoggedIn ? (
-                <div>
-                    <p>Welcome, {loggedInUser}!</p>
-                    <p>Your Blogs</p>
-                    <UserBlogList loggedInUser={loggedInUser}/>
-                    <button onClick={handleLogout}>Logout</button>
-                </div>
-            ) : (
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button onClick={handleLogin}>Login</button>
-                </div>
-            )}
+            <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+            <button onClick={handleLogin}>Login</button>
         </div>
     );
 }
 
-export default Login;
+export default SignIn;
