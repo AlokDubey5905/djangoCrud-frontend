@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loggedInUser, setLoggedInUser] = useState('');
-
-    useEffect(() => {
-        // Check if the user is logged in
-        axios.get('/api/current_user/')
-            .then(response => {
-                setIsLoggedIn(response.data.is_authenticated);
-                setLoggedInUser(response.data.username);
-            })
-            .catch(error => {
-                setIsLoggedIn(false); // Set to false if not authenticated
-                console.error(error);
-            });
-    }, []);
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         try {
@@ -28,6 +17,7 @@ function SignIn() {
             });
             console.log(response.data); // Handle successful login
             setIsLoggedIn(true);
+            navigate('/');
         } catch (error) {
             console.error(error); // Handle login error
         }

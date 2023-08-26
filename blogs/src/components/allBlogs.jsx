@@ -16,9 +16,10 @@ function BlogList() {
   return (
     <div>
       {blogs.map(blog => (
-        <div key={blog.id}>
+        <div key={blog.id} className='blog-card'>
           <h3>{blog.title} by {blog.name}</h3>
           <p>{blog.content}</p>
+          <p>{blog.created_at}</p>
         </div>
       ))}
     </div>

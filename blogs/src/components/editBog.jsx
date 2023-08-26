@@ -1,50 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom'
 
-function AddBlog() {
+function EditBlog() {
+    const { blogId } = useParams();
     const [name, setName] = useState('');
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [blogs, setBlogs] = useState([]);
 
+    useEffect(() => {
+        axios.get(`/api/blog/${blogId}/`)
+            .then(response => {
+                const blog = response.data;
+                setName(blog.name);
+                setTitle(blog.title);
+                setContent(blog.content);
+            })
+            .catch(error => console.error(error));
+    }, [blogId]);
     // get cookies
     function getCookie(name) {
         const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
         return cookieValue ? cookieValue.pop() : '';
     }
 
-    const refreshBlogs = async () => {
-        try {
-            const response = await axios.get('/api/blogs/');
-            setBlogs(response.data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const handleAddBlog = async () => {
+    const handleSave = async () => {
         try {
             const csrfToken = getCookie('csrftoken');
-            const response = await axios.post('/api/add_blog/', { name, title, content }, {
+            const response = await axios.put(`/api/edit_blog/${blogId}/`, {
+                name,
+                title,
+                content,
+            }, {
                 headers: {
                     'X-CSRFToken': csrfToken, // Include the CSRF token in the request headers
                 },
-            }
-            );
-            console.log(response.data);
-            setName('');
-            setTitle('');
-            setContent('');
-            refreshBlogs(); // Refresh the blogs list after addition
+            });
+            console.log(response.data); // Handle successful update
+            // Redirect to home page after successful update
             window.location.href = '/';
         } catch (error) {
             console.error(error);
         }
     };
 
+    const handleCancel = () => {
+        // Redirect to home page without making any changes
+        window.location.href = '/';
+    };
+
     return (
         <div>
-            <h2>Add Blog</h2>
+            <h2>Edit Blog</h2>
             <input
                 type="text"
                 placeholder="Name"
@@ -62,9 +69,10 @@ function AddBlog() {
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
             />
-            <button onClick={handleAddBlog}>Add Blog</button>
+            <button onClick={handleSave} id='save-button'>Save</button>
+            <button onClick={handleCancel} id='cancel-button'>Cancel</button>
         </div>
     );
 }
 
-export default AddBlog;
+export default EditBlog;
