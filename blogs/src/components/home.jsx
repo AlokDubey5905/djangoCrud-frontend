@@ -4,6 +4,7 @@ import UserBlogList from './userBlogs';
 import BlogList from './allBlogs';
 import AddBlog from './addBlog';
 import { useNavigate } from 'react-router-dom';
+import NavigationBar from './navigationBar';
 
 
 function Home() {
@@ -81,30 +82,39 @@ function Home() {
         navigate(`/signin`);
     };
 
-    const handleAdd=()=>{
+    const handleSignUpClick = () => {
+        navigate(`/signup`);
+    };
+
+    const handleAdd = () => {
         navigate(`/add-blog`);
     }
+
+    const navButtonsWithAuth = [
+        { label: 'Add a Blog', onClick: handleAdd },
+        { label: 'Log Out', onClick: handleLogout },
+        { label: showAllBlogs ? 'Close All Blogs' : 'Show All Blogs', onClick: handleToggleAllBlogs }
+    ];
+
+    const navButtonsWithoutAuth = [
+        { label: 'Login', onClick: handleSignInClick },
+        { label: 'Sign Up', onClick: handleSignUpClick }
+    ];
 
 
     return (
         <div>
-            <h1>Welcome to Bloggers!!</h1>
             {isLoggedIn ? (
                 <div>
+                    <NavigationBar buttons={navButtonsWithAuth} />
                     <p>Welcome, {loggedInUser}!</p>
-                    <h2>Your Blogs</h2>
                     <UserBlogList loggedInUser={loggedInUser} />
-                    <button onClick={handleToggleAllBlogs} className='showblog-button'>{showAllBlogs ? 'Close Blogs' : 'Show All Blogs'}</button>
                     {showAllBlogs && <BlogList />}
-                    <button onClick={handleAdd} id='addblog-button'>Add a blog</button>
-                    {/* <AddBlog refreshBlogs={refreshBlogs} /> */}
-                    <button onClick={handleLogout} id='logout-button'>Logout</button>
                 </div>
             ) : (
                 <div>
-                    <p>Welcome!!</p>
-                    <BlogList/>
-                    <button onClick={handleSignInClick} id='signin-button'>SignIn</button>
+                    <NavigationBar buttons={navButtonsWithoutAuth} />
+                    <BlogList />
                 </div>
             )}
         </div>

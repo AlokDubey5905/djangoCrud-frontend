@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../css/addBlog.css';
 
 function AddBlog() {
     const [name, setName] = useState('');
@@ -43,26 +44,28 @@ function AddBlog() {
     };
 
     return (
-        <div>
-            <h2>Add Blog</h2>
-            <input
-                type="text"
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-            <input
-                type="text"
-                placeholder="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-            />
-            <textarea
-                placeholder="Content"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-            />
-            <button onClick={handleAddBlog}>Add Blog</button>
+        <div className="add-blog-container">
+            <div className="add-blog-form">
+                <h2>Add Blog</h2>
+                <input
+                    type="text"
+                    placeholder="Author name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                    type="text"
+                    placeholder="Title of the blog"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+                <textarea
+                    placeholder="Content of the blog"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                />
+                <button onClick={handleAddBlog}>Add Blog</button>
+            </div>
         </div>
     );
 }

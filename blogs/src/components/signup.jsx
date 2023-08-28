@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../css/signup.css';
 
 function Signup() {
     const [username, setUsername] = useState('');
@@ -11,28 +12,31 @@ function Signup() {
                 username,
                 password,
             });
-            console.log(response.data); // Handle successful signup
+            console.log(response.data);
+            window.location.href = '/'; // Handle successful signup
         } catch (error) {
             console.error(error); // Handle signup error
         }
     };
 
     return (
-        <div>
-            <h2>Signup</h2>
-            <input
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-            <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <button onClick={handleSignup}>Signup</button>
+        <div className="signup-page">
+            <div className='signup-container'>
+                <h2>Signup</h2>
+                <input
+                    type="text"
+                    placeholder="Enter username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <input
+                    type="password"
+                    placeholder="Enter password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <button onClick={handleSignup}>Signup</button>
+            </div>
         </div>
     );
 }
