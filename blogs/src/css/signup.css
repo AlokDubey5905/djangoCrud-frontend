@@ -50,6 +50,12 @@
     transition: background-color 0.3s ease;
 }
 
+.signup-container b{
+    color: #007bff;
+    cursor: pointer;
+    font-weight: 300;
+}
+
 .signup-container button:hover {
     background-color: #0056b3;
 }

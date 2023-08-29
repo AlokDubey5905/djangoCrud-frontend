@@ -81,6 +81,7 @@ function Blog() {
         })
             .then(response => {
                 setComments([...comments, response.data]);
+                console.log(response.data)
                 setNewComment('');
             })
             .catch(error => console.error(error));
@@ -208,7 +209,7 @@ function Blog() {
                     {comments && Array.isArray(comments) && comments.length > 0 ? (
                         comments.map(comment => (
                             <div key={comment.id} className="comment-card">
-                                <p><strong>{comment.author}</strong> | {comment.created_at}</p>
+                                <p><strong>{comment.author_first_name} {comment.author_last_name}</strong> | {comment.created_at}</p>
                                 {editingCommentId === comment.id ? (
                                     <div className='edit-comment'>
                                         <textarea

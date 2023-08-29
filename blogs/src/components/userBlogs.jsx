@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../css/userBlogs.css';
-import { useParams } from 'react-router-dom';
 
 function UserBlogList({ loggedInUser }) {
     const [blogs, setBlogs] = useState([]);

@@ -54,6 +54,12 @@
     background-color: #0056b3;
 }
 
+.signin-container b{
+    color: #007bff;
+    cursor: pointer;
+    font-weight: 300;
+}
+
 
 @media (max-width: 600px) {
     .signin-container {

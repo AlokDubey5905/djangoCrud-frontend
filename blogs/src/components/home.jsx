@@ -22,8 +22,9 @@ function Home() {
         // Check if the user is logged in
         axios.get('/api/current_user/')
             .then(response => {
+                console.log(response.data)
                 setIsLoggedIn(response.data.is_authenticated);
-                setLoggedInUser(response.data.username);
+                setLoggedInUser(response.data.first_name);
             })
             .catch(error => {
                 setIsLoggedIn(false); // Set to false if not authenticated
