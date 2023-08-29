@@ -68,7 +68,7 @@ function UserBlogList({ loggedInUser }) {
                                 <p id='time'>{`${createdAt.toLocaleDateString()}`}</p>
                             </div>
                             <p id='content'>{blog.content}</p>
-                            <button onClick={() => handleBlog(blog.id)} id='read-blog-button'>Read Blog</button>
+                            <button onClick={() => handleBlog(blog.id)} id='read-blog-button'>Read Full Blog</button>
                         </div>
                         {blog.author_username === loggedInUser ? (
                             <div className='action-buttons'>

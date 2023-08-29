@@ -42,7 +42,7 @@
 }
 
 .add-blog-form textarea {
-    height: 100px;
+    height: 200px;
     resize: vertical; /* Allow vertical resizing */
 }
 

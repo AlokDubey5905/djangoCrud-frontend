@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom'
+import '../css/editBlog.css';
+import NavigationBar from './navigationBar';
+import { useNavigate } from 'react-router-dom';
 
 function EditBlog() {
     const { blogId } = useParams();
     const [name, setName] = useState('');
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`/api/blog/${blogId}/`)
@@ -49,28 +53,41 @@ function EditBlog() {
         window.location.href = '/';
     };
 
+    const handleHome = () => {
+        navigate('/');
+    };
+
+    const navButtons = [{ label: 'Home', onClick: handleHome }];
+
     return (
         <div>
-            <h2>Edit Blog</h2>
-            <input
-                type="text"
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
-            <input
-                type="text"
-                placeholder="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-            />
-            <textarea
-                placeholder="Content"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-            />
-            <button onClick={handleSave} id='save-button'>Save</button>
-            <button onClick={handleCancel} id='cancel-button'>Cancel</button>
+            <NavigationBar buttons={navButtons} />
+            <div className="edit-blog-container">
+                <div className="edit-blog-form">
+                    <h2>Edit Blog</h2>
+                    <input
+                        type="text"
+                        placeholder="Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                    <textarea
+                        placeholder="Content"
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                    />
+                    <div className="edit-blog-buttons">
+                        <button onClick={handleSave} id='blog-save-button'>Save</button>
+                        <button onClick={handleCancel} id='blog-cancel-button'>Cancel</button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

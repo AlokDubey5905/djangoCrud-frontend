@@ -37,7 +37,7 @@ function Home() {
             setBlogs(response.data);
         } catch (error) {
             console.error(error);
-        }
+        } 
     };
 
     const handleLogin = async () => {

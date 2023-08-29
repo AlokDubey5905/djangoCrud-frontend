@@ -2,6 +2,8 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
 }
 
 .container {
@@ -15,34 +17,33 @@ body {
 /* Basic card styles */
 .blog-card {
     position: relative;
-    max-width: calc(50% - 10px);
-    max-height: fit-content;
-    margin: 5px;
-    border-radius: 5px;
+    width: calc(20% - 20px); /* Initially show 5 cards */
+    height: 320px; /* Fixed height */
+    margin: 10px;
+    border-radius: 10px;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #f7f7f7;
-    /* Background color */
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
-    row-gap: 10px;
-    height: 260px;
-    width: 300px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
 }
 
 .blog-content {
     display: flex;
     flex-direction: column;
-    row-gap: 15px;
-    padding: auto;
+    justify-content: space-between;
+    height: 100%;
+    padding: 10px;
 }
 
 /* Title style */
 .blog-content h3 {
-    font-size: 24px;
+    font-size: 20px;
     margin: 0;
+    cursor: pointer;
 }
 
 /* Author style */
@@ -57,12 +58,10 @@ body {
     font-size: 16px;
     line-height: 1.5;
     margin: 0;
-    /* Limit content height and add ellipsis for extra content */
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 3;
-    /* Number of lines to show before truncating */
     -webkit-box-orient: vertical;
 }
 
@@ -81,34 +80,32 @@ body {
 
 /* Action buttons */
 .blog-card .action-buttons {
-    position: absolute;
-    /* Add this line */
-    bottom: 10px;
-    /* Add this line */
-    width: 90%;
-    /* Add this line */
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: center;
+    margin-top: 10px;
 }
 
 /* Hover effect */
 .blog-card:hover {
-    transform: scale(1.01);
-    /* Increase size on hover */
+    transform: scale(1.02);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Shadow effect */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-#edit-button {
+/* Button styles */
+.blog-card button {
     border: none;
-    background-color: magenta;
-    color: aliceblue;
     border-radius: 10px;
     cursor: pointer;
-    height: 30px;
-    width: 60px;
+    padding: 8px 15px;
+    font-size: 14px;
+}
+
+#edit-button {
+    background-color: magenta;
+    color: aliceblue;
+    transition: background-color 0.3s ease;
 }
 
 #edit-button:hover {
@@ -117,13 +114,9 @@ body {
 }
 
 #delete-button {
-    border: none;
     background-color: red;
     color: aliceblue;
-    border-radius: 10px;
-    cursor: pointer;
-    height: 30px;
-    width: 60px;
+    transition: background-color 0.3s ease;
 }
 
 #delete-button:hover {
@@ -132,12 +125,11 @@ body {
 }
 
 #read-blog-button {
-    color: red;
-    border: 2px solid red;
     background-color: #f7f7f7;
-    height: 30px;
-    width: 80px;
+    border: 2px solid red;
+    color: red;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 #read-blog-button:hover {
@@ -145,45 +137,21 @@ body {
     color: #f7f7f7;
 }
 
-.delete-popup {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: aliceblue;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    color: black;
-    font-size: 16px;
-    text-align: center;
-}
-
-.delete-popup p {
-    margin-bottom: 10px;
-}
-
-.delete-popup button {
-    margin: 0 10px;
-    padding: 8px 15px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    background-color: #ff6b6b;
-    color: white;
-    border-radius: 10px;
-}
-
-/* Media query for responsiveness */
-@media (max-width: 600px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
-    }
-
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
     .blog-card {
-        max-width: 90%;
+        width: calc(25% - 20px); /* Show 4 cards */
+    }
+}
+
+@media (max-width: 900px) {
+    .blog-card {
+        width: calc(33.33% - 20px); /* Show 3 cards */
+    }
+}
+
+@media (max-width: 600px) {
+    .blog-card {
+        width: calc(50% - 20px); /* Show 2 cards */
     }
 }
