@@ -200,40 +200,44 @@ function Blog() {
             <NavigationBar buttons={navButtons} />
             <div className="blog-container">
                 <div className="blog-card-id">
-                    <h1>{title}</h1>
+                    <h1>{title}</h1>    
                     <p>{name} | {`${createdAt.toLocaleDateString()}`}</p>
                     <p>{content}</p>
                 </div>
                 <div className="comment-list">
                     <h2>Comments</h2>
                     {comments && Array.isArray(comments) && comments.length > 0 ? (
-                        comments.map(comment => (
-                            <div key={comment.id} className="comment-card">
-                                <p><strong>{comment.author_first_name} {comment.author_last_name}</strong> | {comment.created_at}</p>
-                                {editingCommentId === comment.id ? (
-                                    <div className='edit-comment'>
-                                        <textarea
-                                            value={editingCommentText}
-                                            onChange={(e) => setEditingCommentText(e.target.value)}
-                                        />
-                                        <div className="comment-edit-buttons">
-                                            <button onClick={() => handleSaveClick(comment.id)}>Save</button>
-                                            <button onClick={() => handleCancelClick()}>Cancel</button>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div>
-                                        <p>{comment.text}</p>
-                                        {isLoggedIn && isCommentAuthor(comment) && (
-                                            <div className='comment-action-buttons'>
-                                                <button onClick={() => handleEditClick(comment.id, comment.text)} id='edit-button'>Edit</button>
-                                                <button onClick={() => handleDeleteClick(comment.id)} id='delete-button'>Delete</button>
+                        comments.map(comment => {
+
+                            const createdAt = new Date(comment.created_at);
+                            return (
+                                <div key={comment.id} className="comment-card">
+                                    <p><strong>{comment.author_first_name} {comment.author_last_name}({comment.author})</strong> | {`${createdAt.toLocaleDateString()}`}</p>
+                                    {editingCommentId === comment.id ? (
+                                        <div className='edit-comment'>
+                                            <textarea
+                                                value={editingCommentText}
+                                                onChange={(e) => setEditingCommentText(e.target.value)}
+                                            />
+                                            <div className="comment-edit-buttons">
+                                                <button onClick={() => handleSaveClick(comment.id)}>Save</button>
+                                                <button onClick={() => handleCancelClick()}>Cancel</button>
                                             </div>
-                                        )}
-                                    </div>
-                                )}
-                            </div>
-                        ))
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <p>{comment.text}</p>
+                                            {isLoggedIn && isCommentAuthor(comment) && (
+                                                <div className='comment-action-buttons'>
+                                                    <button onClick={() => handleEditClick(comment.id, comment.text)} id='edit-button'>Edit</button>
+                                                    <button onClick={() => handleDeleteClick(comment.id)} id='delete-button'>Delete</button>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })
                     ) : (
                         <p>No comments yet.</p>
                     )}

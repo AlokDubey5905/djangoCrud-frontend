@@ -6,7 +6,7 @@ import NavigationBar from './navigationBar';
 import { useNavigate } from 'react-router-dom';
 
 function EditBlog() {
-    const { blogId } = useParams();
+    const { loggedInUser,blogId } = useParams();
     const [name, setName] = useState('');
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -42,7 +42,7 @@ function EditBlog() {
             });
             console.log(response.data); // Handle successful update
             // Redirect to home page after successful update
-            window.location.href = '/';
+            navigate(`/user-blogs/${loggedInUser}`);
         } catch (error) {
             console.error(error);
         }
@@ -50,7 +50,7 @@ function EditBlog() {
 
     const handleCancel = () => {
         // Redirect to home page without making any changes
-        window.location.href = '/';
+        navigate(`/user-blogs/${loggedInUser}`);
     };
 
     const handleHome = () => {

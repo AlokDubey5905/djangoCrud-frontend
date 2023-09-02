@@ -17,8 +17,9 @@ body {
 /* Basic card styles */
 .blog-card {
     position: relative;
-    width: calc(20% - 20px); /* Initially show 5 cards */
-    height: 320px; /* Fixed height */
+    width: 80%;
+    /* Initially show 5 cards */
+    height: fit-content;
     margin: 10px;
     border-radius: 10px;
     padding: 20px;
@@ -34,7 +35,7 @@ body {
 .blog-content {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 20px;
     height: 100%;
     padding: 10px;
     color: aliceblue;
@@ -45,6 +46,11 @@ body {
     font-size: 20px;
     margin: 0;
     cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 /* Author style */
@@ -62,7 +68,7 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
 }
 
@@ -121,17 +127,49 @@ body {
     transition: background-color 0.3s ease;
 }
 
+
 #delete-button:hover {
     background-color: rgb(251, 37, 37);
     color: black;
 }
 
+.delete-popup {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+}
+.delete-options{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.delete-options button
+{
+    background-color: rgb(84, 84, 162);
+    color: white;
+}
+
 #read-blog-button {
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
     background-color: #f7f7f7;
     border: 2px solid red;
     color: red;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-bottom: 20px;
 }
 
 #read-blog-button:hover {
@@ -142,18 +180,21 @@ body {
 /* Media queries for responsiveness */
 @media (max-width: 1200px) {
     .blog-card {
-        width: calc(25% - 20px); /* Show 4 cards */
+        width: 80%;
+        /* Show 4 cards */
     }
 }
 
 @media (max-width: 900px) {
     .blog-card {
-        width: calc(33.33% - 20px); /* Show 3 cards */
+        width: 80%;
+        /* Show 3 cards */
     }
 }
 
 @media (max-width: 600px) {
     .blog-card {
-        width: calc(50% - 20px); /* Show 2 cards */
+        width: 80%;
+        /* Show 2 cards */
     }
 }

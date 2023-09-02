@@ -8,6 +8,7 @@ import AddBlog from './components/addBlog';
 import Blog from './components/blog';
 import Signup from './components/signup';
 import BlogSearch from './components/search';
+import UserBlogsPage from './components/userBlogsPage';
 
 const AppRouter = () => {
     return (
@@ -15,12 +16,13 @@ const AppRouter = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/signin" element={<SignIn />} />
-                <Route path="/edit-blog/:blogId" element={<EditBlog />} />
+                <Route path="/edit-blog/:loggedInUser/:blogId" element={<EditBlog />} />
                 <Route path="/delete-blog/:blogId" element={<DeleteBlog />} />
-                <Route path="/add-blog" element={<AddBlog />} />
+                <Route path="/add-blog/:loggedInUser" element={<AddBlog />} />
                 <Route path="/handle-blog/:blogId" element={<Blog />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/search/:searchQuery" element={<BlogSearch />} />
+                <Route path="/user-blogs/:currentUser" element={<UserBlogsPage/>} />
             </Routes>
         </Router>
     );

@@ -1,0 +1,11 @@
+.homepage
+{
+    background-color: aliceblue;
+}
+
+#welcome-text
+{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}

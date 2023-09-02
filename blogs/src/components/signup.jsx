@@ -2,14 +2,21 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../css/signup.css';
 import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function Signup() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [first_name, setfirstname] = useState('');
     const [last_name, setlastname] = useState('');
-    const [erroMessage,setErrorMessage]=useState('');
+    const [erroMessage, setErrorMessage] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+
+
+    const areAllFieldsFilled = () => {
+        return username !== '' && password !== '' && first_name !== '' && last_name !== '';
+    }
 
     // get cookies
     function getCookie(name) {
@@ -31,7 +38,7 @@ function Signup() {
                 },
             });
             console.log(response.data);
-            window.location.href = '/'; // Handle successful signup
+            navigate('/'); // Handle successful signup
         } catch (error) {
             setErrorMessage(error.response.data.message);
             console.error(error); // Handle signup error
@@ -46,32 +53,44 @@ function Signup() {
         <div className="signup-page">
             <div className='signup-container'>
                 <h2>Signup</h2>
-                <p>{erroMessage}</p>
+                {!areAllFieldsFilled() && <p id='error-message'>All fields are required.</p>}
+                <p id='error-message'>{erroMessage}</p>
                 <input
                     type="text"
+                    required
                     placeholder="Enter first name"
                     value={first_name}
                     onChange={(e) => setfirstname(e.target.value)}
                 />
                 <input
                     type="text"
+                    required
                     placeholder="Enter last name"
                     value={last_name}
                     onChange={(e) => setlastname(e.target.value)}
                 />
                 <input
                     type="text"
+                    required
                     placeholder="Enter username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                 />
-                <input
-                    type="password"
-                    placeholder="Enter password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <button onClick={handleSignup}>Signup</button>
+                <div className='password-container'>
+                    <input
+                        type={showPassword ? 'text' : 'password'}
+                        required
+                        placeholder="Enter password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    {showPassword ? (
+                        <FaEyeSlash className='eye-icon' onClick={() => setShowPassword(false)} />
+                    ) : (
+                        <FaEye className='eye-icon' onClick={() => setShowPassword(true)} />
+                    )}
+                </div>
+                <button onClick={handleSignup} disabled={!areAllFieldsFilled()}>Signup</button>
                 <p>Already have an account? <b onClick={handleLoginAccount}>Login</b></p>
             </div>
         </div>

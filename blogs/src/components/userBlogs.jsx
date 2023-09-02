@@ -7,6 +7,9 @@ function UserBlogList({ loggedInUser }) {
     const [blogs, setBlogs] = useState([]);
     const navigate = useNavigate();
     const [deleteBlogId, setDeleteBlogId] = useState(null);
+    const [showDeletePopup, setShowDeletePopup] = useState(false);
+    const [isBlurred, setIsBlurred] = useState('');
+    console.log("this is the userblogs.jsx", loggedInUser)
 
     // get cookies
     function getCookie(name) {
@@ -25,7 +28,16 @@ function UserBlogList({ loggedInUser }) {
 
     // Redirect to EditBlog component with blogId as parameter
     const handleEditClick = (blogId) => {
-        navigate(`/edit-blog/${blogId}`);
+        navigate(`/edit-blog/${loggedInUser}/${blogId}`);
+    };
+
+    const refreshBlogs = async () => {
+        try {
+            const response = await axios.get('/api/blogs/');
+            setBlogs(response.data);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     // Redirect to DeleteBlog component with blogId as parameter
@@ -38,8 +50,8 @@ function UserBlogList({ loggedInUser }) {
                 },
             });
             console.log(response.data); // Handle successful deletion
-            // Redirect to home page after successful deletion
-            window.location.href = '/';
+            refreshBlogs();
+            navigate(`/`);
         } catch (error) {
             console.error(error);
         }
@@ -51,10 +63,19 @@ function UserBlogList({ loggedInUser }) {
 
     const handleDeleteClick = (blogId) => {
         setDeleteBlogId(blogId);
+        setShowDeletePopup(true);
+        setIsBlurred(true);
     };
 
+    const handleCloseDeletePopup = () => {
+        setShowDeletePopup(false);
+        setIsBlurred(false);
+        setDeleteBlogId(null);
+    };
+
+
     return (
-        <div className='container'>
+        <div className={`container ${isBlurred ? 'blur' : ''}`}>
             {blogs.map(blog => {
                 const createdAt = new Date(blog.created_at); // Convert to Date object
 
@@ -76,11 +97,13 @@ function UserBlogList({ loggedInUser }) {
                             </div>
                         ) : null}
 
-                        {deleteBlogId === blog.id && (
+                        {deleteBlogId === blog.id && showDeletePopup && (
                             <div className='delete-popup'>
                                 <p>Are you sure you want to delete this blog?</p>
-                                <button onClick={() => handleDelete(blog.id)}>Yes</button>
-                                <button onClick={() => setDeleteBlogId(null)}>No</button>
+                                <div className="delete-options">
+                                    <button onClick={() => handleDelete(blog.id)}>Yes</button>
+                                    <button onClick={handleCloseDeletePopup}>No</button>
+                                </div>
                             </div>
                         )}
                     </div>

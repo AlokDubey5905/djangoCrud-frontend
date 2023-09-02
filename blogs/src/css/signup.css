@@ -3,14 +3,12 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(
-        135deg,
-        #ff9a8b,
-        #f6cd61,
-        #6bceff,
-        #6ae2d4,
-        #a1ffce
-    );
+    background: linear-gradient(135deg,
+            #ff9a8b,
+            #f6cd61,
+            #6bceff,
+            #6ae2d4,
+            #a1ffce);
 }
 
 .signup-container {
@@ -38,6 +36,20 @@
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.signup-container button[disabled] {
+    cursor: not-allowed;
+    position: relative;
+}
+
+.signup-container button[disabled]:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
 }
 
 .signup-container button {
@@ -50,7 +62,7 @@
     transition: background-color 0.3s ease;
 }
 
-.signup-container b{
+.signup-container b {
     color: #007bff;
     cursor: pointer;
     font-weight: 300;
@@ -60,9 +72,33 @@
     background-color: #0056b3;
 }
 
+.signup-container #error-message {
+    color: red;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    /* Added flex display */
+}
+
+.eye-icon {
+    position: absolute;
+    top: 40%;
+    right: 3px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
 
 @media (max-width: 600px) {
     .signup-container {
         width: 90%;
+    }
+
+    .signup-page {
+        padding: 10px;
     }
 }

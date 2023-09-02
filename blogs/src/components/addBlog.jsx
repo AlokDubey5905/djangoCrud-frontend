@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../css/addBlog.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useParams } from 'react-router-dom';
 import NavigationBar from './navigationBar';
 
 function AddBlog() {
@@ -10,6 +10,7 @@ function AddBlog() {
     const [content, setContent] = useState('');
     const [blogs, setBlogs] = useState([]);
     const navigate = useNavigate();
+    const {loggedInUser}=useParams();
 
     // get cookies
     function getCookie(name) {
@@ -40,7 +41,8 @@ function AddBlog() {
             setTitle('');
             setContent('');
             refreshBlogs(); // Refresh the blogs list after addition
-            window.location.href = '/';
+            console.log("this is the addblog.jsx",loggedInUser);
+            navigate(`/`);
         } catch (error) {
             console.error(error);
         }

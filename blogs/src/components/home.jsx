@@ -5,6 +5,7 @@ import BlogList from './allBlogs';
 import AddBlog from './addBlog';
 import { useNavigate } from 'react-router-dom';
 import NavigationBar from './navigationBar';
+import '../css/home.css';
 
 
 function Home() {
@@ -24,7 +25,7 @@ function Home() {
             .then(response => {
                 console.log(response.data)
                 setIsLoggedIn(response.data.is_authenticated);
-                setLoggedInUser(response.data.first_name);
+                setLoggedInUser(response.data.username);
             })
             .catch(error => {
                 setIsLoggedIn(false); // Set to false if not authenticated
@@ -75,9 +76,6 @@ function Home() {
             console.error(error); // Handle logout error
         }
     };
-    const handleToggleAllBlogs = () => {
-        setShowAllBlogs(prevShowAllBlogs => !prevShowAllBlogs);
-    };
 
     const handleSignInClick = () => {
         navigate(`/signin`);
@@ -88,13 +86,19 @@ function Home() {
     };
 
     const handleAdd = () => {
-        navigate(`/add-blog`);
+        console.log(loggedInUser);
+        navigate(`/add-blog/${loggedInUser}`);
+    }
+
+    const handleuserPage=()=>{
+        console.log(loggedInUser);
+        navigate(`/user-blogs/${loggedInUser}`);
     }
 
     const navButtonsWithAuth = [
         { label: 'Add a Blog', onClick: handleAdd },
         { label: 'Log Out', onClick: handleLogout },
-        { label: showAllBlogs ? 'Close All Blogs' : 'Show All Blogs', onClick: handleToggleAllBlogs }
+        { label:'Your Blogs', onClick:handleuserPage}
     ];
 
     const navButtonsWithoutAuth = [
@@ -104,13 +108,12 @@ function Home() {
 
 
     return (
-        <div>
+        <div className='homepage'>
             {isLoggedIn ? (
                 <div>
                     <NavigationBar buttons={navButtonsWithAuth} />
-                    <p>Welcome, {loggedInUser}!</p>
-                    <UserBlogList loggedInUser={loggedInUser} />
-                    {showAllBlogs && <BlogList />}
+                    <p id='welcome-text'>Welcome, {loggedInUser}</p>
+                    <BlogList />
                 </div>
             ) : (
                 <div>
