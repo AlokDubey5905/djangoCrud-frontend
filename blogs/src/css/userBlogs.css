@@ -45,7 +45,6 @@ body {
 .blog-content h3 {
     font-size: 20px;
     margin: 0;
-    cursor: pointer;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

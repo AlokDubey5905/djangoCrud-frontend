@@ -47,10 +47,15 @@ function SignIn() {
         navigate(`/signup`);
     }
 
+    const handlegohome=()=>{
+        navigate('/');
+    }
+
     return (
         <div className="signin-page">
+            <h1 id='gohome' onClick={handlegohome}>continue without signup....</h1>
             <div className="signin-container">
-                <h2>Login</h2>
+                <h2>Welcome Back</h2>
                 {!areAllFieldsFilled() && <p id='error-message'>All fields are required.</p>}
                 <p id='error-message'>{errorMessage}</p>
                 <input

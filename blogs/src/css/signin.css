@@ -1,5 +1,6 @@
 .signin-page {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -9,6 +10,16 @@
             #6bceff,
             #6ae2d4,
             #a1ffce);
+}
+
+#gohome
+{
+    cursor: pointer;
+    border: 2px solid black;
+    color: white;
+    background-color: yellow;
+    padding: 5px;
+    font-weight: 500;
 }
 
 .signin-container {

@@ -52,7 +52,7 @@ function Signup() {
     return (
         <div className="signup-page">
             <div className='signup-container'>
-                <h2>Signup</h2>
+                <h2>Welcome</h2>
                 {!areAllFieldsFilled() && <p id='error-message'>All fields are required.</p>}
                 <p id='error-message'>{erroMessage}</p>
                 <input
