@@ -53,7 +53,7 @@ function SignIn() {
 
     return (
         <div className="signin-page">
-            <h1 id='gohome' onClick={handlegohome}>continue without signup....</h1>
+            <h1 id='gohome' onClick={handlegohome}>Clear View Blogs</h1>
             <div className="signin-container">
                 <h2>Welcome Back</h2>
                 {!areAllFieldsFilled() && <p id='error-message'>All fields are required.</p>}

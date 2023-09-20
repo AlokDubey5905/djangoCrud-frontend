@@ -49,8 +49,13 @@ function Signup() {
         navigate(`/signin`);
     }
 
+    const handlegohome=()=>{
+        navigate('/');
+    }
+
     return (
         <div className="signup-page">
+            <h1 id='gohome' onClick={handlegohome}>Clear View Blogs</h1>
             <div className='signup-container'>
                 <h2>Welcome</h2>
                 {!areAllFieldsFilled() && <p id='error-message'>All fields are required.</p>}
